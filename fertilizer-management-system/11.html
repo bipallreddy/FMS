@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+var subjectObject = {
+  "PADDY": {
+    "FERT1": ["1000"],
+    "FERT2": ["1000"],
+    "FERT3": ["1000"]  
+  },
+  "COTTON": {
+    "FERT4": ["4000"],
+    "FERT5": ["5000"]
+  }
+}
+window.onload = function() {
+  var cropSel = document.getElementById("crop");
+  var fertSel = document.getElementById("fert");
+  var CostSel = document.getElementById("Cost");
+  for (var x in subjectObject) {
+    cropSel.options[cropSel.options.length] = new Option(x, x);
+  }
+  cropSel.onchange = function() {
+    //empty Cost- and fert- dropdowns
+    CostSel.length = 1;
+    fertSel.length = 1;
+    //display correct values
+    for (var y in subjectObject[this.value]) {
+      fertSel.options[fertSel.options.length] = new Option(y, y);
+    }
+  }
+  fertSel.onchange = function() {
+    //empty Cost dropdown
+    CostSel.length = 1;
+    //display correct values
+    var z = subjectObject[cropSel.value][this.value];
+    for (var i = 0; i < z.length; i++) {
+      CostSel.options[CostSel.options.length] = new Option(z[i], z[i]);
+    }
+  }
+}
+</script>
+</head>   
+<body>
+
+<h1>Selecting fertilizer based on crop</h1>
+
+<form name="form1" id="form1" action="/action_page.php">
+crop: <select name="crop" id="crop">
+    <option value="" selected="selected">Select crop</option>
+  </select>
+  <br><br>
+fert: <select name="fert" id="fert">
+    <option value="" selected="selected">Please select crop first</option>
+  </select>
+  <br><br>
+Cost: <select name="Cost" id="Cost">
+    <option value="" selected="selected">Please select fert first</option>
+  </select>
+  <br><br>
+   
+</form>
+
+<a href="diss.html">
+            <button>Submit</button>
+            </a> 
+</body>
+</html>
